@@ -1,0 +1,84 @@
+name: Backend CI
+ 
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'back/**'
+ 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./back
+ 
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: Build with Maven
+      run: mvn clean verify
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./back
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Run tests
+      run: mvn clean test
+
+    - name: JaCoCo coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage_backend
+        path: ${{ github.workspace }}/back/target/site/jacoco
+
+    - name: Build and analyze
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=karla-perez-brugues_bob-app
+
+  docker:
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    needs: test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./back
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      run: |
+        docker build -t bob-app-back .
+        docker tag bob-app-back ${{ secrets.DOCKERHUB_USERNAME }}/bob-app-back:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/bob-app-back:latest
