@@ -69,13 +69,13 @@ jobs:
           name: code-coverage-report
           path: ${{ github.workspace }}/front/coverage/bobapp/**
 
-      - name: Scan SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v2
-        with:
-          projectBaseDir: front
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_BRANCH_NAME: main
+      # - name: Scan SonarCloud
+      #   uses: SonarSource/sonarcloud-github-action@v2
+      #   with:
+      #     projectBaseDir: front
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_BRANCH_NAME: main
 
   docker:
     # if: github.event_name == 'pull_request' && github.base_ref == 'main'
