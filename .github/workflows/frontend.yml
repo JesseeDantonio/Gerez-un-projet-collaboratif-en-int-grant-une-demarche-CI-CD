@@ -77,7 +77,7 @@ jobs:
           SONAR_BRANCH_NAME: main
 
   docker:
-    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    # if: github.event_name == 'pull_request' && github.base_ref == 'main'
     needs: test
     runs-on: ubuntu-latest
     defaults:
