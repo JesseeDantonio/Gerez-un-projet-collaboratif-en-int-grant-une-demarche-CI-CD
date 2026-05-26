@@ -1,6 +1,7 @@
 name: Backend CI
  
 on:
+  workflow_dispatch:
   pull_request:
     branches: [ "main" ]
     paths:
@@ -60,7 +61,7 @@ jobs:
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=karla-perez-brugues_bob-app
 
   docker:
-    if: github.event_name == 'pull_request' && github.base_ref == 'main'
+    # if: github.event_name == 'pull_request' && github.base_ref == 'main'
     needs: test
     runs-on: ubuntu-latest
     defaults:
