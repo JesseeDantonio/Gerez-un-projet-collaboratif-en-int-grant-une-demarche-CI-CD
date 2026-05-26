@@ -70,7 +70,7 @@ jobs:
           path: ${{ github.workspace }}/front/coverage/bobapp/**
 
       - name: Scan SonarCloud
-        uses: SonarSource/sonarqube-scan-action@master
+        uses: SonarSource/sonarcloud-github-action@v2
         with:
           projectBaseDir: front
         env:
