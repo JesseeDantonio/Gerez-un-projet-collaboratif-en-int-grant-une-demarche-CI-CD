@@ -58,7 +58,7 @@ jobs:
     - name: Build and analyze
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn clean verify sonar:sonar -Dsonar.projectKey=dylan-jessee-d-antonio_bob-app-back -Dsonar.organization=dylan-jessee-d-antonio
+      run: mvn clean verify sonar:sonar -Dsonar.projectKey=dylan-jessee-d-antonio_bob-app-back -Dsonar.organization=dylan-jessee-d-antonio -Dsonar.host.url=https://sonarcloud.io -Dsonar.branch.name=main
 
   docker:
     # if: github.event_name == 'pull_request' && github.base_ref == 'main'
