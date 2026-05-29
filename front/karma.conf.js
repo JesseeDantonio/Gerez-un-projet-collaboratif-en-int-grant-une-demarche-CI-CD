@@ -1,6 +1,7 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
-
+// Ligne 3 de karma.conf.js
+process.env.CHROME_BIN = '/usr/bin/chromium-browser';
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -29,7 +30,8 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }
+        { type: 'text-summary' },
+        { type: 'lcovonly'}
       ]
     },
     reporters: ['progress', 'kjhtml'],
