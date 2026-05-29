@@ -70,13 +70,9 @@ jobs:
           path: ${{ github.workspace }}/front/coverage/bobapp/**
 
       - name: Scan SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v2
+        uses: SonarSource/sonarqube-scan-action@master
         with:
           projectBaseDir: front
-          args: >
-            -Dsonar.projectKey=dylan-jessee-d-antonio_bob-app-front
-            -Dsonar.organization=dylan-jessee-d-antonio
-            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
