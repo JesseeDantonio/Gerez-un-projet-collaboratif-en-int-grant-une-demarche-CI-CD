@@ -28,8 +28,8 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' },
-        { type: 'lcov'}
+        { type: 'lcovonly' },
+        { type: 'text-summary' }
       ]
     },
     reporters: ['progress', 'kjhtml'],
