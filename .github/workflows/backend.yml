@@ -67,7 +67,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
         # On précise à l'action où Maven a généré le fichier de rapport de tâche
-        scanMetadataReportFile: back/target/sonar/report-task.txt
+        scanMetadataReportFile: back/.scannerwork/report-task.txt
 
   docker:
     if: github.event_name == 'pull_request' && github.base_ref == 'main'
