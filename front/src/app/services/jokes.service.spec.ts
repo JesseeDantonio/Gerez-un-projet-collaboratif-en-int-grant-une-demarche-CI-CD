@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
 import { JokesService } from './jokes.service';
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 import { Joke } from '../model/joke.model';
 
 describe('JokesService', () => {
   let service: JokesService;
+  let httpMock: HttpTestingController;
     const mockJoke: Joke = {
       id: 1,
       content: 'Pourquoi les plongeurs plongent-ils toujours en arrière ? Parce que sinon ils tombent dans le bateau.'
@@ -17,6 +18,7 @@ describe('JokesService', () => {
       providers: [JokesService]
     });
     service = TestBed.get(JokesService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
