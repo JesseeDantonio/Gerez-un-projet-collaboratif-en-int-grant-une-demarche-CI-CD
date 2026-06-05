@@ -2,9 +2,14 @@ import { TestBed } from '@angular/core/testing';
 
 import { JokesService } from './jokes.service';
 import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { Joke } from '../model/joke.model';
 
 describe('JokesService', () => {
   let service: JokesService;
+    const mockJoke: Joke = {
+      id: 1,
+      content: 'Pourquoi les plongeurs plongent-ils toujours en arrière ? Parce que sinon ils tombent dans le bateau.'
+    } as unknown as Joke; // Adapte les propriétés selon ton vrai modèle Joke
 
   beforeEach(() => {
     TestBed.configureTestingModule({
