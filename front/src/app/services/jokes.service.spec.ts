@@ -36,5 +36,5 @@ describe('JokesService', () => {
     service.joke$().subscribe((joke) => {
       expect(joke).toEqual(mockJoke);
     });
-    
+  });
   });
